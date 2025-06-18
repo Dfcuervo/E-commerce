@@ -1,11 +1,11 @@
 # Backend Microservice
 
 Este es un microservicio para la gestión de pedidos en una plataforma e-commerce que maneja:
-- Múltiples vendedores
-- Centros de distribución
-- Inventarios
-- Procesamiento de pagos
-- Integración asíncrona mediante eventos Kafka
+- Múltiples vendedores.
+- Centros de distribución.
+- Inventarios.
+- Procesamiento de pagos.
+- Integración asíncrona mediante eventos Kafka.
 
 ---
 
@@ -19,7 +19,7 @@ Este es un microservicio para la gestión de pedidos en una plataforma e-commerc
 - JWT para autenticación.
 - JUnit & Mockito para pruebas unitarias.
 - Spring Web + Validation.
-- Arquitectura hexagonal (Ports & Adapters).
+- Arquitectura hexagonal.
 - Logging con SLF4J.
 
 ---
@@ -28,7 +28,7 @@ Este es un microservicio para la gestión de pedidos en una plataforma e-commerc
 
 - Principios SOLID.
 - Separación de responsabilidades por capas.
-- Arquitectura limpia con Ports & Adapters.
+- Arquitectura hexagonal.
 - Lógica de negocio centralizada.
 - Evitar lógica en entidades JPA.
 - Manejo global de excepciones y validaciones claras.
@@ -151,10 +151,19 @@ Este proyecto sigue el patrón de arquitectura hexagonal (Ports and Adapters), o
   - Headers JWT
   - Ejemplos de peticiones/respuestas
 
+## Documentación Swagger
+
+Puedes abrir la documentación interactiva en:
+
+- [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+También está disponible el archivo .json en:
+
+- `docs/api.json`
 ---
 
 ## Importante:
 
-- Podrá encontrar el archivo de la documentación de los endpoints de la API en la carpeta postman dentro del proyecto.
-- Podrá encontrar el archivo de la base de datos usada en la carpeta database dentro del proyecto.
+- Podrá encontrar el archivo de la documentación de los endpoints con Postman de la API en la carpeta /postman dentro del proyecto.
+- Podrá encontrar el archivo de la base de datos usada en la carpeta /database dentro del proyecto.
 
