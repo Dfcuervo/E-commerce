@@ -3,6 +3,9 @@ package com.ecommerce.orderservice.infrastructure.adapter.controller;
 import com.ecommerce.orderservice.application.dto.*;
 import com.ecommerce.orderservice.application.usecase.*;
 import com.ecommerce.orderservice.infrastructure.config.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/orders")
+@Tag(name = "Orders", description = "Operations for managing customer orders")
+@SecurityRequirement(name = "BearerAuth")
 public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final UpdateOrderItemsUseCase updateOrderItemsUseCase;
@@ -39,6 +44,7 @@ public class OrderController {
         this.cancelOrderUseCase = cancelOrderUseCase;
     }
 
+    @Operation(summary = "Create a new order", description = "Creates a new order for a customer with item details.")
     @PostMapping
     public ResponseEntity<ApiResponse<OrderResponseDto>> createOrder(@Valid @RequestBody OrderRequestDto request) {
         log.info("[POST] Creating new sales order: {}", request.getCustomerId());
@@ -48,6 +54,7 @@ public class OrderController {
                 .body(new ApiResponse<>(response, "success", "Order successfully created"));
     }
 
+    @Operation(summary = "Get order by ID", description = "Returns the order with the specified ID.")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderResponseDto>> getOrderById(@PathVariable Long id) {
         log.info("[GET] Order with ID: {}", id);
@@ -55,6 +62,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiResponse<>(dto, "success", "Order found"));
     }
 
+    @Operation(summary = "Get all orders by customer ID", description = "Returns a list of orders placed by a specific customer.")
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<ApiResponse<List<OrderResponseDto>>> getOrderByCustomer(@PathVariable Long customerId) {
         log.info("[GET] Ordering by customer ID: {}", customerId);
@@ -62,6 +70,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiResponse<>(orders, "success", "Customer orders obtained"));
     }
 
+    @Operation(summary = "Search orders", description = "Filters orders by optional status, customer ID, and creation date.")
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<OrderResponseDto>>> searchOrder(
             @RequestParam(required = false) String status,
@@ -74,6 +83,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiResponse<>(results, "success", "Search result"));
     }
 
+    @Operation(summary = "Update items in an order", description = "Replaces the items of a specific order with a new list.")
     @PutMapping("/{id}/items")
     public ResponseEntity<ApiResponse<OrderResponseDto>> updateItems(
             @PathVariable Long id,
@@ -85,6 +95,7 @@ public class OrderController {
         return ResponseEntity.ok(new ApiResponse<>(updated, "success", "Items updated correctly"));
     }
 
+    @Operation(summary = "Cancel an order", description = "Cancels the order with the specified ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> cancelOrder(@PathVariable Long id) {
         log.info("[DELETE] Canceling order ID: {}", id);
