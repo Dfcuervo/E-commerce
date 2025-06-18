@@ -1,0 +1,777 @@
+{
+	"info": {
+		"_postman_id": "32c5b5ce-8684-4845-9ca9-3dea61a6c6dd",
+		"name": "Microservice",
+		"description": "# Order Service API – E-commerce Microservice\n\nThis RESTful API manages customer orders within an e-commerce platform. It supports operations like creating orders, updating items, retrieving order details, searching by filters, and canceling orders.\n\n---\n\n## Authentication\n\nAll endpoints require JWT authentication via the `Authorization` header.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42653691"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Jun 2025 02:11:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY\"\n    },\n    \"status\": \"success\",\n    \"message\": \"Successful login\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Generate JWT token for use with the all the endpoints."
+		},
+		{
+			"name": "Create orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": 102,\r\n  \"items\": [\r\n    {\r\n      \"id\": 4,\r\n      \"productId\": 2,\r\n      \"vendorId\": 5,\r\n      \"quantity\": 2,\r\n      \"unitPrice\": 120.0,\r\n      \"warehouseId\": 3\r\n    },\r\n    {\r\n      \"id\": 5,\r\n      \"productId\": 3,\r\n      \"vendorId\": 5,\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 250.0,\r\n      \"warehouseId\": 3\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				},
+				"description": "### Create New Order\n\nCreates a new sales order with customer ID and a list of order items.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Returns:** `201 Created` if successful, with the created order in response.\n\n---"
+			},
+			"response": [
+				{
+					"name": "Create orders",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": 102,\r\n  \"items\": [\r\n    {\r\n      \"id\": 4,\r\n      \"productId\": 2,\r\n      \"vendorId\": 5,\r\n      \"quantity\": 2,\r\n      \"unitPrice\": 120.0,\r\n      \"warehouseId\": 3\r\n    },\r\n    {\r\n      \"id\": 5,\r\n      \"productId\": 3,\r\n      \"vendorId\": 5,\r\n      \"quantity\": 1,\r\n      \"unitPrice\": 250.0,\r\n      \"warehouseId\": 3\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 18 Jun 2025 02:12:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": 5,\n        \"customerId\": 102,\n        \"items\": [\n            {\n                \"id\": null,\n                \"productId\": 2,\n                \"vendorId\": 5,\n                \"quantity\": 2,\n                \"unitPrice\": 120,\n                \"warehouseId\": 3\n            },\n            {\n                \"id\": null,\n                \"productId\": 3,\n                \"vendorId\": 5,\n                \"quantity\": 1,\n                \"unitPrice\": 250,\n                \"warehouseId\": 3\n            }\n        ],\n        \"status\": \"PENDING\",\n        \"createdAt\": \"2025-06-17T21:12:02.9603256\",\n        \"totalAmount\": 490\n    },\n    \"status\": \"success\",\n    \"message\": \"Order successfully created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get orders by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"1"
+					]
+				},
+				"description": "### Get Order by ID\n\nRetrieves the details of a specific order based on its unique ID.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Response:** Returns 200 OK with the order data if found, or 404 if the order does not exist.\n\n---"
+			},
+			"response": [
+				{
+					"name": "Get orders by id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 18 Jun 2025 02:14:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"customerId\": 1,\n        \"items\": [],\n        \"status\": \"CANCELLED\",\n        \"createdAt\": \"2025-05-02T00:00:00\",\n        \"totalAmount\": 100\n    },\n    \"status\": \"success\",\n    \"message\": \"Order found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get orders by customer id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/customer/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"customer",
+						"1"
+					]
+				},
+				"description": "### Get Orders by Customer ID\n\nRetrieves all orders placed by a specific customer.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Response:** Returns 200 OK with a list of orders. If no orders exist for the given customer, an empty list is returned."
+			},
+			"response": [
+				{
+					"name": "Get orders by customer id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 18 Jun 2025 02:15:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"customerId\": 1,\n            \"items\": [],\n            \"status\": \"CANCELLED\",\n            \"createdAt\": \"2025-05-02T00:00:00\",\n            \"totalAmount\": 100\n        }\n    ],\n    \"status\": \"success\",\n    \"message\": \"Customer orders obtained\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Search orders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/search?status=PENDING&customerId=101&date=2025-05-02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"search"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PENDING"
+						},
+						{
+							"key": "customerId",
+							"value": "101"
+						},
+						{
+							"key": "date",
+							"value": "2025-05-02"
+						}
+					]
+				},
+				"description": "### Search Orders\n\nSearches for orders using optional filters: status, customer ID, and creation date.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Response:** Returns 200 OK with a list of orders that match the provided filters.\n\nAll query parameters are optional. If no filters are provided, all orders may be returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Update items",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"productId\": 21,\r\n    \"vendorId\": 63,\r\n    \"quantity\": 55,\r\n    \"unitPrice\": 195.0,\r\n    \"warehouseId\": 10\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/3/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"3",
+						"items"
+					]
+				},
+				"description": "### Update Items of an Order\n\nReplaces the list of items associated with an existing order. The total amount of the order will be recalculated based on the new items.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Response:** Returns 200 OK with the updated order data.\n\nIf the list of items is empty or invalid, the request will return 400 Bad Request."
+			},
+			"response": [
+				{
+					"name": "Update items",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"productId\": 21,\r\n    \"vendorId\": 63,\r\n    \"quantity\": 55,\r\n    \"unitPrice\": 195.0,\r\n    \"warehouseId\": 10\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/3/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"3",
+								"items"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 18 Jun 2025 02:17:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": 3,\n        \"customerId\": 101,\n        \"items\": [\n            {\n                \"id\": null,\n                \"productId\": 21,\n                \"vendorId\": 63,\n                \"quantity\": 55,\n                \"unitPrice\": 195,\n                \"warehouseId\": 10\n            }\n        ],\n        \"status\": \"PAID\",\n        \"createdAt\": \"2025-06-17T14:28:00.056861\",\n        \"totalAmount\": 10725\n    },\n    \"status\": \"success\",\n    \"message\": \"Items updated correctly\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Cancel orders",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/orders/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"3"
+					]
+				},
+				"description": "### Cancel an Order\n\nCancels a sales order by its ID. This operation changes the status of the order to CANCELLED and prevents any further modification.\n\n**Authorization:** Requires Bearer token (JWT)\n\n**Response:** Returns 200 OK when the order is successfully cancelled."
+			},
+			"response": [
+				{
+					"name": "Cancel orders",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc1MDIxMjY4NiwiZXhwIjoxNzUwMjE2Mjg2fQ.q9qlNTG-34UynWzsft8MusBP0fHK5mfeBoDMz2IRoXY",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/orders/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"3"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 18 Jun 2025 02:19:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": null,\n    \"status\": \"success\",\n    \"message\": \"Order cancelled\"\n}"
+				}
+			]
+		}
+	]
+}
