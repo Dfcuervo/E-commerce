@@ -24,6 +24,19 @@ Este es un microservicio para la gestión de pedidos en una plataforma e-commerc
 
 ---
 
+## Buenas prácticas aplicadas
+
+- Principios SOLID.
+- Separación de responsabilidades por capas.
+- Arquitectura limpia con Ports & Adapters.
+- Lógica de negocio centralizada.
+- Evitar lógica en entidades JPA.
+- Manejo global de excepciones y validaciones claras.
+- Pruebas automáticas y estructura de nombres estándar.
+- Variables, métodos y clases con nombres descriptivos.
+
+---
+
 ## Arquitectura hexagonal aplicada
 
 Este proyecto sigue el patrón de arquitectura hexagonal (Ports and Adapters), organizando el código por responsabilidad y permitiendo desacoplamiento entre:
@@ -137,16 +150,11 @@ Este proyecto sigue el patrón de arquitectura hexagonal (Ports and Adapters), o
 - Incluye:
   - Headers JWT
   - Ejemplos de peticiones/respuestas
-  
+
 ---
 
-## Buenas prácticas aplicadas
+## Importante:
 
-- Principios SOLID.
-- Separación de responsabilidades por capas.
-- Arquitectura limpia con Ports & Adapters.
-- Lógica de negocio centralizada.
-- Evitar lógica en entidades JPA.
-- Manejo global de excepciones y validaciones claras.
-- Pruebas automáticas y estructura de nombres estándar.
-- Variables, métodos y clases con nombres descriptivos.
+- Podrá encontrar el archivo de la documentación de los endpoints de la API en la carpeta postman dentro del proyecto.
+- Podrá encontrar el archivo de la base de datos usada en la carpeta database dentro del proyecto.
+
