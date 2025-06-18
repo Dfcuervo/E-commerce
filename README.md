@@ -7,8 +7,6 @@ Este es un microservicio para la gestión de pedidos en una plataforma e-commerc
 - Procesamiento de pagos
 - Integración asíncrona mediante eventos Kafka
 
-Construido con **Java 17** y **Spring Boot 3.3.x** siguiendo principios de **arquitectura hexagonal**, **buenas prácticas de ingeniería de software** y **documentación profesional**.
-
 ---
 
 ## Tecnologías utilizadas
@@ -108,8 +106,11 @@ Este proyecto sigue el patrón de arquitectura hexagonal (Ports and Adapters), o
 - Mensajes enviados correctamente por el producer
 - Mensajes recibidos correctamente por el consumer
 ![Captura de pantalla 2025-06-17 213056](https://github.com/user-attachments/assets/348eac1b-e97f-4c36-866c-b7df7b8606f6)
+
 - Logs del procesamiento exitoso del evento de orden:
 ![Captura de pantalla 2025-06-17 213146](https://github.com/user-attachments/assets/c18fe59d-ee4c-4451-99b3-09893a368b94)
+
+- Cambio en la base de datos:
 ![Captura de pantalla 2025-06-17 213204](https://github.com/user-attachments/assets/6af73ae2-cfac-4214-8a34-0aeccdcf22d4)
 
 ---
@@ -136,7 +137,7 @@ Este proyecto sigue el patrón de arquitectura hexagonal (Ports and Adapters), o
 - Incluye:
   - Headers JWT
   - Ejemplos de peticiones/respuestas
-  - 
+  
 ---
 
 ## Buenas prácticas aplicadas
